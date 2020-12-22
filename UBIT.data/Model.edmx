@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="IPTwModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="appointment_id" />
+          </Key>
+          <Property Name="appointment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="appointment_number" Type="int" Nullable="false" />
+          <Property Name="appointment_doctor_id" Type="int" Nullable="false" />
+          <Property Name="appointment_patient_id" Type="int" Nullable="false" />
+          <Property Name="appointment_type" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="appointment_date" Type="datetime" Nullable="false" />
+          <Property Name="appointment_description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="doctor_id" />
+          </Key>
+          <Property Name="doctor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctor_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="doctor_specialist" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="doctor_mobile" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="doctor_email" Type="nvarchar" MaxLength="252" Nullable="false" />
+          <Property Name="doctor_address" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MedicalRecord">
+          <Key>
+            <PropertyRef Name="mrecord_id" />
+          </Key>
+          <Property Name="mrecord_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mrecord_patient_id" Type="int" Nullable="false" />
+          <Property Name="mrecord_patient_problem" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="mrecord_dateofExamintion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="patient_id" />
+          </Key>
+          <Property Name="patient_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="patient_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="patient_mobile" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="patient_email" Type="nvarchar" MaxLength="252" Nullable="false" />
+          <Property Name="pateint_address" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Appointment_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="doctor_id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="appointment_doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="patient_id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="appointment_patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalRecord_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="patient_id" />
+            </Principal>
+            <Dependent Role="MedicalRecord">
+              <PropertyRef Name="mrecord_patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IPTwModelStoreContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalRecord" EntityType="Self.MedicalRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Appointment_Doctor" Association="Self.FK_Appointment_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_Patient" Association="Self.FK_Appointment_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalRecord_Patient" Association="Self.FK_MedicalRecord_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="MedicalRecord" EntitySet="MedicalRecord" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IPTwModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="appointment_id" />
+          </Key>
+          <Property Name="appointment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="appointment_number" Type="Int32" Nullable="false" />
+          <Property Name="appointment_doctor_id" Type="Int32" Nullable="false" />
+          <Property Name="appointment_patient_id" Type="Int32" Nullable="false" />
+          <Property Name="appointment_type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="appointment_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="appointment_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Appointment_Doctor" FromRole="Appointment" ToRole="Doctor" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_Appointment_Patient" FromRole="Appointment" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="doctor_id" />
+          </Key>
+          <Property Name="doctor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctor_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="doctor_specialist" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="doctor_mobile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="doctor_email" Type="String" MaxLength="252" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="doctor_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK_Appointment_Doctor" FromRole="Doctor" ToRole="Appointment" />
+        </EntityType>
+        <EntityType Name="MedicalRecord">
+          <Key>
+            <PropertyRef Name="mrecord_id" />
+          </Key>
+          <Property Name="mrecord_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mrecord_patient_id" Type="Int32" Nullable="false" />
+          <Property Name="mrecord_patient_problem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mrecord_dateofExamintion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_MedicalRecord_Patient" FromRole="MedicalRecord" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="patient_id" />
+          </Key>
+          <Property Name="patient_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="patient_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="patient_mobile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="patient_email" Type="String" MaxLength="252" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pateint_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK_Appointment_Patient" FromRole="Patient" ToRole="Appointment" />
+          <NavigationProperty Name="MedicalRecords" Relationship="Self.FK_MedicalRecord_Patient" FromRole="Patient" ToRole="MedicalRecord" />
+        </EntityType>
+        <Association Name="FK_Appointment_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="doctor_id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="appointment_doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="patient_id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="appointment_patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalRecord_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="patient_id" />
+            </Principal>
+            <Dependent Role="MedicalRecord">
+              <PropertyRef Name="mrecord_patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IPTwEntitiesNew" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="MedicalRecords" EntityType="Self.MedicalRecord" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <AssociationSet Name="FK_Appointment_Doctor" Association="Self.FK_Appointment_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_Patient" Association="Self.FK_Appointment_Patient">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalRecord_Patient" Association="Self.FK_MedicalRecord_Patient">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="MedicalRecord" EntitySet="MedicalRecords" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IPTwModelStoreContainer" CdmEntityContainer="IPTwEntitiesNew">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="IPTwModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="appointment_id" ColumnName="appointment_id" />
+                <ScalarProperty Name="appointment_number" ColumnName="appointment_number" />
+                <ScalarProperty Name="appointment_doctor_id" ColumnName="appointment_doctor_id" />
+                <ScalarProperty Name="appointment_patient_id" ColumnName="appointment_patient_id" />
+                <ScalarProperty Name="appointment_type" ColumnName="appointment_type" />
+                <ScalarProperty Name="appointment_date" ColumnName="appointment_date" />
+                <ScalarProperty Name="appointment_description" ColumnName="appointment_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="IPTwModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="doctor_id" ColumnName="doctor_id" />
+                <ScalarProperty Name="doctor_name" ColumnName="doctor_name" />
+                <ScalarProperty Name="doctor_specialist" ColumnName="doctor_specialist" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="doctor_mobile" ColumnName="doctor_mobile" />
+                <ScalarProperty Name="doctor_email" ColumnName="doctor_email" />
+                <ScalarProperty Name="doctor_address" ColumnName="doctor_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalRecords">
+            <EntityTypeMapping TypeName="IPTwModel.MedicalRecord">
+              <MappingFragment StoreEntitySet="MedicalRecord">
+                <ScalarProperty Name="mrecord_id" ColumnName="mrecord_id" />
+                <ScalarProperty Name="mrecord_patient_id" ColumnName="mrecord_patient_id" />
+                <ScalarProperty Name="mrecord_patient_problem" ColumnName="mrecord_patient_problem" />
+                <ScalarProperty Name="mrecord_dateofExamintion" ColumnName="mrecord_dateofExamintion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="IPTwModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+                <ScalarProperty Name="patient_name" ColumnName="patient_name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="patient_mobile" ColumnName="patient_mobile" />
+                <ScalarProperty Name="patient_email" ColumnName="patient_email" />
+                <ScalarProperty Name="pateint_address" ColumnName="pateint_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

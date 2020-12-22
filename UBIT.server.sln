@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UBIT.server", "UBIT.server\UBIT.server.csproj", "{A5EB5DF4-834D-48E4-AAB8-080F56714379}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UBIT.data", "UBIT.data\UBIT.data.csproj", "{68369D76-1C24-4BDF-ADDB-2A0FC8CD63A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UBIT.Data.Test", "UBIT.Data.Test\UBIT.Data.Test.csproj", "{4E546A39-C5C9-49D4-9F68-8EE189E8C6BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5EB5DF4-834D-48E4-AAB8-080F56714379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5EB5DF4-834D-48E4-AAB8-080F56714379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5EB5DF4-834D-48E4-AAB8-080F56714379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5EB5DF4-834D-48E4-AAB8-080F56714379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68369D76-1C24-4BDF-ADDB-2A0FC8CD63A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68369D76-1C24-4BDF-ADDB-2A0FC8CD63A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68369D76-1C24-4BDF-ADDB-2A0FC8CD63A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68369D76-1C24-4BDF-ADDB-2A0FC8CD63A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E546A39-C5C9-49D4-9F68-8EE189E8C6BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E546A39-C5C9-49D4-9F68-8EE189E8C6BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E546A39-C5C9-49D4-9F68-8EE189E8C6BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E546A39-C5C9-49D4-9F68-8EE189E8C6BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
